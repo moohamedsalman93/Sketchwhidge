@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SketchWidget Demo - CDN Version</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 40px;
+    }
+    
+    .demo-section {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+    }
+    
+    .demo-section h2 {
+      color: #333;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+    
+    .demo-section p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    
+    .code-block {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 15px 0;
+      overflow-x: auto;
+    }
+    
+    .code-block code {
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: 14px;
+      color: #333;
+    }
+    
+    .widget-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+      padding: 20px;
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      background: #fafafa;
+    }
+    
+    .controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+    
+    .controls button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      background: #007aff;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    
+    .controls button:hover {
+      background: #0056b3;
+    }
+    
+    .controls button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .feature-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 4px solid #007aff;
+    }
+    
+    .feature-card h3 {
+      margin-top: 0;
+      color: #333;
+    }
+    
+    .feature-card p {
+      margin-bottom: 0;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 SketchWidget Demo</h1>
+    
+    <div class="demo-section">
+      <h2>1. Basic Usage with Data Attributes</h2>
+      <p>The simplest way to add a sketch widget to your page:</p>
+      
+      <div class="code-block">
+        <code>&lt;div data-sketch-widget data-width="600" data-height="400"&gt;&lt;/div&gt;</code>
+      </div>
+      
+      <div class="widget-container">
+        <div data-sketch-widget data-width="600" data-height="400" data-export-format="svg"></div>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h2>2. Programmatic Control</h2>
+      <p>Create and control the widget with JavaScript:</p>
+      
+      <div class="code-block">
+        <code>const widget = new SketchWidget('#my-sketch', {
+  width: 800,
+  height: 500,
+  exportFormat: 'both',
+  tools: ['pencil', 'pen', 'marker', 'eraser']
+});</code>
+      </div>
+      
+      <div class="widget-container">
+        <div id="programmatic-sketch"></div>
+      </div>
+      
+      <div class="controls">
+        <button onclick="clearCanvas()">Clear Canvas</button>
+        <button onclick="exportDrawing()">Export Drawing</button>
+        <button onclick="saveDrawing()">Save to Storage</button>
+        <button onclick="loadDrawing()">Load from Storage</button>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h2>3. Compact Version</h2>
+      <p>A smaller widget with limited tools:</p>
+      
+      <div class="widget-container">
+        <div data-sketch-widget 
+             data-width="400" 
+             data-height="300" 
+             data-export-format="svg"></div>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h2>Features</h2>
+      
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>🎨 Vector Export</h3>
+          <p>Export your drawings as scalable SVG files that can be resized without quality loss.</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3>🖌️ Multiple Tools</h3>
+          <p>Pencil, pen, marker, eraser, lasso selection, and ruler tools for versatile drawing.</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3>📱 Touch Support</h3>
+          <p>Works seamlessly on desktop, tablet, and mobile devices with pointer events.</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3>⚡ Lightweight</h3>
+          <p>Only ~15KB minified with zero dependencies. Pure JavaScript implementation.</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3>🎯 Easy Integration</h3>
+          <p>Simple CDN inclusion or npm install. Works with any framework or vanilla JS.</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3>🔧 Customizable</h3>
+          <p>Configure colors, tools, canvas size, and export formats to match your needs.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="demo-section">
+      <h2>Getting Started</h2>
+      
+      <p>Add the widget to your website in 3 simple steps:</p>
+      
+      <div class="code-block">
+        <code>&lt;!-- 1. Include the script --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/yourusername/sketch-widget/sketch-widget.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- 2. Add a container --&gt;
+&lt;div data-sketch-widget data-width="800" data-height="600"&gt;&lt;/div&gt;
+
+&lt;!-- 3. That's it! The widget will auto-initialize --&gt;</code>
+      </div>
+      
+      <p>For more advanced usage, check out the <a href="https://github.com/yourusername/sketch-widget" target="_blank">GitHub repository</a> and documentation.</p>
+    </div>
+  </div>
+  
+  <!-- Include the SketchWidget -->
+  <script src="sketch-widget.js"></script>
+  
+  <script>
+    // Programmatic widget
+    let programmaticWidget;
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      programmaticWidget = new SketchWidget('#programmatic-sketch', {
+        width: 800,
+        height: 500,
+        exportFormat: 'both',
+        tools: ['pencil', 'pen', 'marker', 'eraser', 'lasso']
+      });
+    });
+    
+    // Control functions
+    function clearCanvas() {
+      if (programmaticWidget) {
+        programmaticWidget.clear();
+      }
+    }
+    
+    function exportDrawing() {
+      if (programmaticWidget) {
+        programmaticWidget.exportDrawing();
+      }
+    }
+    
+    function saveDrawing() {
+      if (programmaticWidget) {
+        const data = programmaticWidget.getStrokes();
+        localStorage.setItem('sketch-demo-data', JSON.stringify(data));
+        alert('Drawing saved to local storage!');
+      }
+    }
+    
+    function loadDrawing() {
+      if (programmaticWidget) {
+        const data = JSON.parse(localStorage.getItem('sketch-demo-data') || '[]');
+        if (data.length > 0) {
+          programmaticWidget.loadStrokes(data);
+          alert('Drawing loaded from local storage!');
+        } else {
+          alert('No saved drawing found!');
+        }
+      }
+    }
+  </script>
+</body>
+</html> 

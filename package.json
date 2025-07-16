@@ -1,0 +1,49 @@
+{
+  "name": "sketch-widget",
+  "version": "1.0.0",
+  "description": "A lightweight, embeddable sketch canvas widget that exports vector graphics (SVG)",
+  "main": "dist/sketch-widget.min.js",
+  "unpkg": "dist/sketch-widget.min.js",
+  "jsdelivr": "dist/sketch-widget.min.js",
+  "files": [
+    "dist/",
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "npm run minify",
+    "minify": "terser src/sketch-widget.js -o dist/sketch-widget.min.js --compress --mangle --source-map",
+    "dev": "python -m http.server 8000",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "sketch",
+    "canvas",
+    "drawing",
+    "vector",
+    "svg",
+    "widget",
+    "embeddable",
+    "cdn",
+    "javascript"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/sketch-widget.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/sketch-widget/issues"
+  },
+  "homepage": "https://github.com/yourusername/sketch-widget#readme",
+  "devDependencies": {
+    "terser": "^5.43.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

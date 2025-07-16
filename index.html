@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apple Notes Sketch Clone</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="canvas-container">
+    <canvas id="sketch-canvas" width="1200" height="800"></canvas>
+  </div>
+  <div class="toolbar">
+    <div class="toolbar-tools">
+      <button id="tool-pencil" title="Pencil">✏️</button>
+      <button id="tool-pen" title="Pen">🖊️</button>
+      <button id="tool-marker" title="Marker">🖍️</button>
+      <button id="tool-eraser" title="Eraser">🧽</button>
+      <button id="tool-lasso" title="Lasso">🔲</button>
+      <button id="tool-ruler" title="Ruler">📏</button>
+    </div>
+    <div class="toolbar-controls">
+      <input type="range" id="thickness-picker" min="1" max="30" value="3" title="Thickness">
+      <button id="undo" title="Undo">↩️</button>
+      <button id="redo" title="Redo">↪️</button>
+      <button id="export" title="Export as Image">💾</button>
+    </div>
+    <div class="color-swatches" id="color-swatches">
+      <button class="color-swatch" data-color="#000000" style="background: #000000;"></button>
+      <button class="color-swatch" data-color="#FF3B30" style="background: #FF3B30;"></button>
+      <button class="color-swatch" data-color="#FF9500" style="background: #FF9500;"></button>
+      <button class="color-swatch" data-color="#FFCC00" style="background: #FFCC00;"></button>
+      <button class="color-swatch" data-color="#4CD964" style="background: #4CD964;"></button>
+      <button class="color-swatch" data-color="#5AC8FA" style="background: #5AC8FA;"></button>
+      <button class="color-swatch" data-color="#0579FF" style="background: #0579FF;"></button>
+      <button class="color-swatch" data-color="#5856D6" style="background: #5856D6;"></button>
+      <button class="color-swatch" data-color="#FFFFFF" style="background: #FFFFFF; border: 1px solid #ccc;"></button>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html> 
