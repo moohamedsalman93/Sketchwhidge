@@ -32,12 +32,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/sketch-widget.git"
+    "url": "git+https://github.com/moohamedsalman93/sketch-widget.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/sketch-widget/issues"
+    "url": "https://github.com/moohamedsalman93/sketch-widget/issues"
   },
-  "homepage": "https://github.com/yourusername/sketch-widget#readme",
+  "homepage": "https://github.com/moohamedsalman93/sketch-widget#readme",
   "devDependencies": {
     "terser": "^5.43.1"
   },

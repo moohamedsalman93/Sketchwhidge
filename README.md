@@ -18,7 +18,7 @@ A lightweight, embeddable sketch canvas widget that exports vector graphics (SVG
 
 ```html
 <!-- Include the widget -->
-<script src="https://cdn.jsdelivr.net/gh/yourusername/sketch-widget@latest/dist/sketch-widget.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/moohamedsalman93/sketch-widget@latest/dist/sketch-widget.min.js"></script>
 
 <!-- Simple usage with data attributes -->
 <div data-sketch-widget 
@@ -148,12 +148,12 @@ The widget exports drawings as SVG files, which are:
 
 ### Latest Version (Recommended)
 ```html
-<script src="https://cdn.jsdelivr.net/gh/yourusername/sketch-widget@latest/dist/sketch-widget.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/moohamedsalman93/sketch-widget@latest/dist/sketch-widget.min.js"></script>
 ```
 
 ### Specific Version
 ```html
-<script src="https://cdn.jsdelivr.net/gh/yourusername/sketch-widget@v1.0.0/dist/sketch-widget.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/moohamedsalman93/sketch-widget@v1.0.0/dist/sketch-widget.min.js"></script>
 ```
 
 ### Alternative CDNs
@@ -176,7 +176,7 @@ The widget exports drawings as SVG files, which are:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/sketch-widget.git
+git clone https://github.com/moohamedsalman93/sketch-widget.git
 cd sketch-widget
 
 # Install dependencies
@@ -199,10 +199,10 @@ MIT License - feel free to use in any project!
 
 ## Links
 
-- [GitHub Repository](https://github.com/yourusername/sketch-widget)
+- [GitHub Repository](https://github.com/moohamedsalman93/sketch-widget)
 - [NPM Package](https://www.npmjs.com/package/sketch-widget)
-- [Demo Page](https://yourusername.github.io/sketch-widget/)
-- [Issues](https://github.com/yourusername/sketch-widget/issues)
+- [Demo Page](https://moohamedsalman93.github.io/sketch-widget/)
+- [Issues](https://github.com/moohamedsalman93/sketch-widget/issues)
 
 ## Changelog
 

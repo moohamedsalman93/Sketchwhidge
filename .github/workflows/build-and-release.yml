@@ -83,7 +83,7 @@ jobs:
           ## CDN Usage
           
           ```html
-          <script src="https://cdn.jsdelivr.net/gh/yourusername/sketch-widget@${{ github.ref }}/dist/sketch-widget.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/gh/moohamedsalman93/sketch-widget@${{ github.ref }}/dist/sketch-widget.min.js"></script>
           ```
           
           ## NPM Installation
@@ -108,5 +108,5 @@ jobs:
     - name: Purge jsdelivr cache
       run: |
         # Purge the jsdelivr cache for the new version
-        curl -X POST "https://purge.jsdelivr.net/gh/yourusername/sketch-widget@${{ github.ref }}/dist/sketch-widget.min.js"
-        curl -X POST "https://purge.jsdelivr.net/gh/yourusername/sketch-widget@latest/dist/sketch-widget.min.js" 
+        curl -X POST "https://purge.jsdelivr.net/gh/moohamedsalman93/sketch-widget@${{ github.ref }}/dist/sketch-widget.min.js"
+        curl -X POST "https://purge.jsdelivr.net/gh/moohamedsalman93/sketch-widget@latest/dist/sketch-widget.min.js" 

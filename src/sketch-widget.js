@@ -2,7 +2,7 @@
  * SketchWidget - A lightweight, embeddable sketch canvas with vector export
  * Version: 1.0.0
  * License: MIT
- * Repository: https://github.com/yourusername/sketch-widget
+ * Repository: https://github.com/moohamedsalman93/sketch-widget
  */
 
 (function(window, document) {

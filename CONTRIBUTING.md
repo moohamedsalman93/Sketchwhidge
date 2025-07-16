@@ -6,7 +6,7 @@ Thank you for your interest in contributing to SketchWidget! This document provi
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/sketch-widget.git
+   git clone https://github.com/moohamedsalman93/sketch-widget.git
    cd sketch-widget
    ```
 

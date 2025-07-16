@@ -23,7 +23,7 @@ This guide explains how to deploy SketchWidget to GitHub for jsdelivr CDN distri
    git add .
    git commit -m "Initial commit: SketchWidget v1.0.0"
    git branch -M main
-   git remote add origin https://github.com/yourusername/sketch-widget.git
+   git remote add origin https://github.com/moohamedsalman93/sketch-widget.git
    git push -u origin main
    ```
 
@@ -78,8 +78,8 @@ After deployment, verify these URLs work:
 
 ### GitHub CDN (jsdelivr)
 ```
-https://cdn.jsdelivr.net/gh/yourusername/sketch-widget@latest/dist/sketch-widget.min.js
-https://cdn.jsdelivr.net/gh/yourusername/sketch-widget@v1.0.0/dist/sketch-widget.min.js
+https://cdn.jsdelivr.net/gh/moohamedsalman93/sketch-widget@latest/dist/sketch-widget.min.js
+https://cdn.jsdelivr.net/gh/moohamedsalman93/sketch-widget@v1.0.0/dist/sketch-widget.min.js
 ```
 
 ### NPM CDN (if published to npm)
@@ -91,13 +91,13 @@ https://unpkg.com/sketch-widget@latest/dist/sketch-widget.min.js
 ## Step 6: Update Documentation
 
 1. **Replace placeholders** in README.md:
-   - Replace `yourusername` with your GitHub username
+   - Replace `moohamedsalman93` with your GitHub username
    - Update repository URLs
    - Update author information in package.json
 
 2. **Test CDN links** in demo.html:
    ```html
-   <script src="https://cdn.jsdelivr.net/gh/yourusername/sketch-widget@latest/dist/sketch-widget.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/gh/moohamedsalman93/sketch-widget@latest/dist/sketch-widget.min.js"></script>
    ```
 
 ## Step 7: Set up GitHub Pages (Optional)
@@ -109,7 +109,7 @@ https://unpkg.com/sketch-widget@latest/dist/sketch-widget.min.js
    - Select "/ (root)" folder
 
 2. **Access your demo**
-   - Visit: `https://yourusername.github.io/sketch-widget/demo.html`
+   - Visit: `https://moohamedsalman93.github.io/sketch-widget/demo.html`
 
 ## Release Process
 
@@ -136,10 +136,10 @@ jsdelivr caches files for 7 days. To force refresh:
 
 ```bash
 # Purge specific version
-curl -X POST "https://purge.jsdelivr.net/gh/yourusername/sketch-widget@v1.0.0/dist/sketch-widget.min.js"
+curl -X POST "https://purge.jsdelivr.net/gh/moohamedsalman93/sketch-widget@v1.0.0/dist/sketch-widget.min.js"
 
 # Purge latest
-curl -X POST "https://purge.jsdelivr.net/gh/yourusername/sketch-widget@latest/dist/sketch-widget.min.js"
+curl -X POST "https://purge.jsdelivr.net/gh/moohamedsalman93/sketch-widget@latest/dist/sketch-widget.min.js"
 ```
 
 ## Troubleshooting
@@ -175,6 +175,6 @@ curl -X POST "https://purge.jsdelivr.net/gh/yourusername/sketch-widget@latest/di
 
 ## Support
 
-- [GitHub Issues](https://github.com/yourusername/sketch-widget/issues)
-- [GitHub Discussions](https://github.com/yourusername/sketch-widget/discussions)
+- [GitHub Issues](https://github.com/moohamedsalman93/sketch-widget/issues)
+- [GitHub Discussions](https://github.com/moohamedsalman93/sketch-widget/discussions)
 - [jsdelivr Support](https://github.com/jsdelivr/jsdelivr) 
