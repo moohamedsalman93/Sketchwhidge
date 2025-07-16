@@ -102,9 +102,9 @@ canvas.addEventListener('pointerdown', function(e) {
       lassoLastPos = {x: e.offsetX, y: e.offsetY};
     } else {
       // Start new lasso selection
-      lassoActive = true;
-      lassoPoints = [{x: e.offsetX, y: e.offsetY}];
-      lassoSelectedStrokes = [];
+    lassoActive = true;
+    lassoPoints = [{x: e.offsetX, y: e.offsetY}];
+    lassoSelectedStrokes = [];
       updateLassoToolbarButtons(); // Hide buttons when starting new selection
     }
   }
@@ -131,9 +131,9 @@ canvas.addEventListener('pointermove', function(e) {
       drawLasso(true);
     } else if (lassoActive) {
       // Continue lasso selection
-      lassoPoints.push({x: e.offsetX, y: e.offsetY});
-      redraw();
-      drawLasso();
+    lassoPoints.push({x: e.offsetX, y: e.offsetY});
+    redraw();
+    drawLasso();
     }
   }
 });
@@ -147,15 +147,15 @@ canvas.addEventListener('pointerup', function(e) {
       lassoLastPos = null;
     } else if (lassoActive) {
       // End lasso selection
-      lassoActive = false;
-      // Close lasso polygon
-      if (lassoPoints.length > 2) {
-        lassoPoints.push(lassoPoints[0]);
-        lassoSelectedStrokes = strokes.filter(stroke => strokeInLasso(stroke, lassoPoints));
+    lassoActive = false;
+    // Close lasso polygon
+    if (lassoPoints.length > 2) {
+      lassoPoints.push(lassoPoints[0]);
+      lassoSelectedStrokes = strokes.filter(stroke => strokeInLasso(stroke, lassoPoints));
         updateLassoToolbarButtons(); // Show buttons after selection
-      }
-      redraw();
-      drawLasso(true);
+    }
+    redraw();
+    drawLasso(true);
     }
   }
 });

@@ -241,8 +241,8 @@
       programmaticWidget = new SketchWidget('#programmatic-sketch', {
         width: 800,
         height: 500,
-        exportFormat: 'both',
-        tools: ['pencil', 'pen', 'marker', 'eraser', 'lasso']
+        exportFormat: 'json',
+        tools: ['pencil', 'pen', 'marker', 'eraser', 'lasso','ruler']
       });
     });
     
@@ -266,10 +266,13 @@
         alert('Drawing saved to local storage!');
       }
     }
+
+    
     
     function loadDrawing() {
       if (programmaticWidget) {
         const data = JSON.parse(localStorage.getItem('sketch-demo-data') || '[]');
+        // const data = {"version":"1.0","width":800,"height":500,"backgroundColor":"#fcfcfa","strokes":[{"tool":"pencil","color":"#000000","thickness":3,"points":[{"x":315.00006103515625,"y":171.70834350585938},{"x":306.3333435058594,"y":171.70834350585938},{"x":301.00006103515625,"y":174.375},{"x":296.3333435058594,"y":178.375},{"x":291.66668701171875,"y":183.0416717529297},{"x":281.66668701171875,"y":192.375},{"x":272.3333435058594,"y":202.375},{"x":268.3333435058594,"y":211.70834350585938},{"x":268.3333435058594,"y":217.0416717529297},{"x":273.66668701171875,"y":227.0416717529297},{"x":290.3333435058594,"y":238.375},{"x":318.3333435058594,"y":254.3750457763672},{"x":343.66668701171875,"y":273.04168701171875},{"x":354.3333435058594,"y":287.04168701171875},{"x":356.3333435058594,"y":297.7083435058594},{"x":351.66668701171875,"y":305.04168701171875},{"x":342.3333435058594,"y":311.04168701171875},{"x":322.3333435058594,"y":316.37506103515625},{"x":301.00006103515625,"y":316.37506103515625}]}]};
         if (data.length > 0) {
           programmaticWidget.loadStrokes(data);
           alert('Drawing loaded from local storage!');
