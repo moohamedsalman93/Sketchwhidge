@@ -64,10 +64,33 @@
     }
 
     createHTML() {
+      // Handle percentage dimensions by calculating actual size
+      const containerRect = this.container.getBoundingClientRect();
+      
+      // If container has no dimensions, wait a bit and try again
+      if ((containerRect.width === 0 || containerRect.height === 0) && 
+          (this.config.width === '100%' || this.config.height === '100%')) {
+        setTimeout(() => this.createHTML(), 50);
+        return;
+      }
+      
+      const actualWidth = this.config.width === '100%' ? containerRect.width : 
+                         (typeof this.config.width === 'string' && this.config.width.includes('%')) ? 
+                         (parseFloat(this.config.width) / 100) * containerRect.width : 
+                         parseInt(this.config.width);
+      const actualHeight = this.config.height === '100%' ? containerRect.height : 
+                          (typeof this.config.height === 'string' && this.config.height.includes('%')) ? 
+                          (parseFloat(this.config.height) / 100) * containerRect.height : 
+                          parseInt(this.config.height);
+
+      // Store actual dimensions for canvas
+      this.actualWidth = actualWidth || 800;
+      this.actualHeight = actualHeight || 600;
+
       this.container.innerHTML = `
-        <div class="sketch-widget" style="position: relative; display: inline-block;">
-          <div class="canvas-container" style="display: flex; justify-content: center; align-items: flex-start; margin-bottom: 20px;">
-            <canvas class="sketch-canvas" width="${this.config.width}" height="${this.config.height}" style="
+        <div class="sketch-widget" style="position: relative; display: flex; flex-direction: column; width: ${this.config.width}; height: ${this.config.height};">
+          <div class="canvas-container" style="display: flex; justify-content: center; align-items: flex-start; margin-bottom: 20px; flex: 1; width: 100%; height: 100%;">
+            <canvas class="sketch-canvas" width="${this.actualWidth}" height="${this.actualHeight}" style="
               background: ${this.config.backgroundColor};
               border-radius: 12px;
               box-shadow: 0 4px 16px rgba(0,0,0,0.1);
@@ -75,6 +98,10 @@
               touch-action: none;
               -webkit-user-select: none;
               user-select: none;
+              max-width: 100%;
+              max-height: 100%;
+              width: ${this.actualWidth}px;
+              height: ${this.actualHeight}px;
             "></canvas>
           </div>
           <div class="sketch-toolbar" style="
@@ -88,6 +115,7 @@
             justify-content: center;
             margin: 0 auto;
             width: fit-content;
+            flex-shrink: 0;
           ">
             <div class="toolbar-tools" style="
               display: grid;
@@ -263,6 +291,16 @@
       
       // Toolbar expand
       this.container.querySelector('.toolbar-expand').addEventListener('click', () => this.toggleToolbar());
+      
+      // Add window resize listener for responsive canvas
+      if (this.config.width === '100%' || this.config.height === '100%' || 
+          (typeof this.config.width === 'string' && this.config.width.includes('%')) ||
+          (typeof this.config.height === 'string' && this.config.height.includes('%'))) {
+        window.addEventListener('resize', () => {
+          clearTimeout(this.resizeTimeout);
+          this.resizeTimeout = setTimeout(() => this.resize(), 100);
+        });
+      }
     }
 
     setActiveTool(tool) {
@@ -325,7 +363,7 @@
     }
 
     redraw() {
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ctx.clearRect(0, 0, this.actualWidth, this.actualHeight);
       this.ctx.save();
       this.ctx.translate(0, this.panY);
       
@@ -342,6 +380,31 @@
       // Draw active tools
       if (this.rulerActive) this.drawRuler();
       if (this.lassoActive || this.lassoSelectedStrokes.length > 0) this.drawLasso(true);
+    }
+
+    // Add resize method to handle dynamic container sizing
+    resize() {
+      const containerRect = this.container.getBoundingClientRect();
+      const actualWidth = this.config.width === '100%' ? containerRect.width : 
+                         (typeof this.config.width === 'string' && this.config.width.includes('%')) ? 
+                         (parseFloat(this.config.width) / 100) * containerRect.width : 
+                         parseInt(this.config.width);
+      const actualHeight = this.config.height === '100%' ? containerRect.height : 
+                          (typeof this.config.height === 'string' && this.config.height.includes('%')) ? 
+                          (parseFloat(this.config.height) / 100) * containerRect.height : 
+                          parseInt(this.config.height);
+
+      this.actualWidth = actualWidth || 800;
+      this.actualHeight = actualHeight || 600;
+
+      // Update canvas dimensions
+      this.canvas.width = this.actualWidth;
+      this.canvas.height = this.actualHeight;
+      this.canvas.style.width = this.actualWidth + 'px';
+      this.canvas.style.height = this.actualHeight + 'px';
+      
+      // Redraw everything
+      this.redraw();
     }
 
     drawStroke(stroke) {
@@ -428,9 +491,9 @@
 
     exportSVG() {
       const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      svg.setAttribute('width', this.canvas.width);
-      svg.setAttribute('height', this.canvas.height);
-      svg.setAttribute('viewBox', `0 0 ${this.canvas.width} ${this.canvas.height}`);
+      svg.setAttribute('width', this.actualWidth);
+      svg.setAttribute('height', this.actualHeight);
+      svg.setAttribute('viewBox', `0 0 ${this.actualWidth} ${this.actualHeight}`);
       
       // Add background
       const background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
@@ -521,8 +584,8 @@
     exportJSON() {
       const sketchData = {
         version: "1.0",
-        width: this.canvas.width,
-        height: this.canvas.height,
+        width: this.actualWidth,
+        height: this.actualHeight,
         backgroundColor: this.config.backgroundColor,
         strokes: this.strokes.map(stroke => ({
           tool: stroke.tool,
@@ -557,7 +620,12 @@
 
     loadStrokes(strokes) {
       this.strokes = strokes;
-      this.redraw();
+      // Ensure canvas is properly sized before redrawing
+      if (this.config.width === '100%' || this.config.height === '100%') {
+        this.resize();
+      } else {
+        this.redraw();
+      }
     }
 
     initializeState() {

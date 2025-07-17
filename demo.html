@@ -66,6 +66,14 @@
       border: 2px dashed #ddd;
       border-radius: 8px;
       background: #fafafa;
+      min-height: 400px; /* Add minimum height */
+    }
+    
+    /* Add specific styling for the programmatic sketch container */
+    #programmatic-sketch {
+      width: 100%;
+      height: 700px; /* Set explicit height */
+      min-height: 400px;
     }
     
     .controls {
@@ -239,8 +247,8 @@
     
     document.addEventListener('DOMContentLoaded', () => {
       programmaticWidget = new SketchWidget('#programmatic-sketch', {
-        width: 800,
-        height: 500,
+        width: '100%',
+        height: '100%',
         exportFormat: 'json',
         tools: ['pencil', 'pen', 'marker', 'eraser', 'lasso','ruler']
       });
