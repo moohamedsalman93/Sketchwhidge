@@ -27,7 +27,7 @@ jobs:
       run: npm run build
     
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: dist
         path: dist/
@@ -69,30 +69,26 @@ jobs:
       run: npm run build
     
     - name: Create Release
-      uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: |
-          ## Changes
+      run: |
+        gh release create ${{ github.ref_name }} \
+          --title "Release ${{ github.ref_name }}" \
+          --notes "## Changes
           
           See [CHANGELOG.md](CHANGELOG.md) for full details.
           
           ## CDN Usage
           
-          ```html
-          <script src="https://cdn.jsdelivr.net/gh/moohamedsalman93/sketch-widget@${{ github.ref }}/dist/sketch-widget.min.js"></script>
-          ```
+          \`\`\`html
+          <script src=\"https://cdn.jsdelivr.net/gh/moohamedsalman93/sketch-widget@${{ github.ref_name }}/dist/sketch-widget.min.js\"></script>
+          \`\`\`
           
           ## NPM Installation
           
-          ```bash
-          npm install sketch-widget@${{ github.ref }}
-          ```
-        draft: false
-        prerelease: false
+          \`\`\`bash
+          npm install sketch-widget@${{ github.ref_name }}
+          \`\`\`"
     
     - name: Publish to NPM
       run: npm publish
