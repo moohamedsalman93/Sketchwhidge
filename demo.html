@@ -3,38 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SketchWidget Demo - CDN Version</title>
+  <title>SketchWidget Demo - Advanced Features Showcase</title>
+  <script src="src/sketch-widget.js"></script>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       margin: 0;
       padding: 20px;
-      background: #f5f5f5;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
     }
     
     .container {
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
     }
     
     h1 {
       text-align: center;
-      color: #333;
+      color: #2c3e50;
+      margin-bottom: 30px;
+      font-size: 2.5em;
+    }
+    
+    .subtitle {
+      font-size: 18px;
+      color: #6c757d;
       margin-bottom: 40px;
+      text-align: center;
+      font-weight: 300;
     }
     
     .demo-section {
       background: white;
       padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-      margin-bottom: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      backdrop-filter: blur(10px);
     }
     
     .demo-section h2 {
       color: #333;
       margin-top: 0;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
+      font-size: 1.5em;
+      border-bottom: 2px solid #667eea;
+      padding-bottom: 10px;
+    }
+    
+    .demo-section h3 {
+      color: #555;
+      margin-top: 25px;
+      margin-bottom: 15px;
+      font-size: 1.2em;
     }
     
     .demo-section p {
@@ -43,19 +65,59 @@
       margin-bottom: 20px;
     }
     
-    .code-block {
-      background: #f8f9fa;
-      border: 1px solid #e9ecef;
-      border-radius: 8px;
-      padding: 15px;
-      margin: 15px 0;
-      overflow-x: auto;
+    .feature-list {
+      display: grid;
+      gap: 15px;
+      margin: 25px 0;
     }
     
-    .code-block code {
-      font-family: 'SF Mono', Consolas, monospace;
+    .feature-item {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 4px solid #007bff;
+      transition: all 0.3s ease;
+    }
+    
+    .feature-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.1);
+    }
+    
+    .feature-item strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #495057;
+      font-size: 16px;
+    }
+    
+    .control-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: 20px;
+      margin-bottom: 10px;
+    }
+    
+    .control-group label {
+      font-weight: 500;
+      color: #495057;
+      min-width: 120px;
+    }
+    
+    .control-group select {
+      padding: 8px 12px;
+      border: 1px solid #ced4da;
+      border-radius: 6px;
+      background: white;
       font-size: 14px;
-      color: #333;
+      min-width: 140px;
+    }
+    
+    .control-group select:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
     }
     
     .widget-container {
@@ -97,6 +159,7 @@
     
     .controls button:hover {
       background: #0056b3;
+      transform: translateY(-1px);
     }
     
     .controls button:disabled {
@@ -107,187 +170,583 @@
     .feature-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      gap: 25px;
       margin: 30px 0;
     }
     
     .feature-card {
-      background: #f8f9fa;
-      padding: 20px;
-      border-radius: 8px;
-      border-left: 4px solid #007aff;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      border-top: 4px solid #007bff;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     }
     
     .feature-card h3 {
-      margin-top: 0;
-      color: #333;
+      margin: 0 0 15px 0;
+      color: #2c3e50;
+      font-size: 20px;
     }
     
     .feature-card p {
-      margin-bottom: 0;
-      color: #666;
+      margin: 0;
+      color: #6c757d;
+      line-height: 1.6;
+    }
+    
+    .feature-card p strong {
+      color: #495057;
+      font-weight: 600;
+    }
+    
+    .code-block {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 15px 0;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      overflow-x: auto;
+    }
+    
+    .code-block code {
+      color: #495057;
+      font-size: 14px;
+      line-height: 1.5;
+      white-space: pre;
+    }
+    
+    @media (max-width: 768px) {
+      .feature-list {
+        grid-template-columns: 1fr;
+      }
+      
+      .control-group {
+        display: block;
+        margin-bottom: 15px;
+      }
+      
+      .control-group label {
+        display: block;
+        margin-bottom: 5px;
+        min-width: auto;
+      }
+      
+      .controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .controls button {
+        margin: 5px 0;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🎨 SketchWidget Demo</h1>
+    <h1>🎨 SketchWidget</h1>
+    <div class="subtitle">Advanced Vector Drawing Canvas with Professional Features</div>
     
+    <!-- Advanced Features Overview -->
     <div class="demo-section">
-      <h2>1. Basic Usage with Data Attributes</h2>
-      <p>The simplest way to add a sketch widget to your page:</p>
+      <h2>🚀 New Advanced Features</h2>
+      <p>SketchWidget now includes professional-grade features for enhanced drawing experiences:</p>
       
-      <div class="code-block">
-        <code>&lt;div data-sketch-widget data-width="600" data-height="400"&gt;&lt;/div&gt;</code>
-      </div>
-      
-      <div class="widget-container">
-        <div data-sketch-widget data-width="600" data-height="400" data-export-format="svg"></div>
+      <div class="feature-list">
+        <div class="feature-item">
+          <strong>🍎 Apple Pencil Support</strong>
+          Enhanced precision tracking with pressure sensitivity and palm rejection
+        </div>
+        <div class="feature-item">
+          <strong>🎛️ Advanced Toolbar</strong>
+          Draggable, collapsible, multi-position toolbar with floating mode
+        </div>
+        <div class="feature-item">
+          <strong>🎨 Individual Tool Settings</strong>
+          Each tool has its own thickness: Pencil (3px), Pen (5px), Marker (10px), Eraser (15px)
+        </div>
+        <div class="feature-item">
+          <strong>🌈 Alpha/Opacity Control</strong>
+          Adjustable transparency for all drawing tools with real-time preview
+        </div>
+        <div class="feature-item">
+          <strong>🔗 Lasso Selection Tool</strong>
+          Select, move, copy, and delete drawn elements with precision
+        </div>
+        <div class="feature-item">
+          <strong>📏 Ruler/Measurement Tool</strong>
+          Measure distances and create precise technical drawings
+        </div>
+        <div class="feature-item">
+          <strong>⚡ Performance Optimized</strong>
+          120fps rendering with stroke caching and incremental drawing
+        </div>
+        <div class="feature-item">
+          <strong>🔒 Read-Only Mode</strong>
+          Display-only mode for showcasing drawings without editing
+        </div>
       </div>
     </div>
-    
+
+    <!-- Interactive Demo -->
     <div class="demo-section">
-      <h2>2. Programmatic Control</h2>
-      <p>Create and control the widget with JavaScript:</p>
-      
-      <div class="code-block">
-        <code>const widget = new SketchWidget('#my-sketch', {
-  width: 800,
-  height: 500,
-  exportFormat: 'both',
-  tools: ['pencil', 'pen', 'marker', 'eraser']
-});</code>
-      </div>
+      <h2>🎮 Interactive Demo - Full Feature Set</h2>
+      <p>Try all the advanced features in this fully-featured demo:</p>
       
       <div class="widget-container">
-        <div id="programmatic-sketch"></div>
+        <div id="advanced-demo"></div>
       </div>
       
       <div class="controls">
-        <button onclick="clearCanvas()">Clear Canvas</button>
-        <button onclick="exportDrawing()">Export Drawing</button>
-        <button onclick="saveDrawing()">Save to Storage</button>
-        <button onclick="loadDrawing()">Load from Storage</button>
+        <div class="control-group">
+          <label>Toolbar Position:</label>
+          <select id="toolbar-position">
+            <option value="bottom">Bottom</option>
+            <option value="top">Top</option>
+            <option value="left">Left</option>
+            <option value="right">Right</option>
+            <option value="floating">Floating</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>Toolbar Orientation:</label>
+          <select id="toolbar-orientation">
+            <option value="horizontal">Horizontal</option>
+            <option value="vertical">Vertical</option>
+          </select>
+        </div>
+        <button onclick="toggleToolbar()">Toggle Toolbar</button>
+        <button onclick="toggleCollapse()">Collapse/Expand</button>
+        <button onclick="setReadOnly()">Toggle Read-Only</button>
+        <button onclick="clearAdvanced()">Clear Canvas</button>
+        <button onclick="exportAdvanced()">Export SVG</button>
       </div>
     </div>
-    
+
+    <!-- Apple Pencil Demo -->
     <div class="demo-section">
-      <h2>3. Compact Version</h2>
-      <p>A smaller widget with limited tools:</p>
+      <h2>🍎 Apple Pencil Optimized Demo</h2>
+      <p>Experience enhanced precision with Apple Pencil support. Try drawing with different input methods:</p>
       
       <div class="widget-container">
-        <div data-sketch-widget 
-             data-width="400" 
-             data-height="300" 
-             data-export-format="svg"></div>
+        <div id="pencil-demo"></div>
+      </div>
+      
+      <div class="controls">
+        <button onclick="showPencilInfo()">Show Input Info</button>
+        <button onclick="clearPencil()">Clear</button>
+      </div>
+      <div id="pencil-info" style="margin-top: 15px; padding: 15px; background: #f0f8ff; border-radius: 8px; display: none;">
+        <strong>Current Input:</strong> <span id="input-type">None</span><br>
+        <strong>Pointer ID:</strong> <span id="pointer-id">None</span><br>
+        <strong>Pressure:</strong> <span id="pressure">None</span>
       </div>
     </div>
-    
+
+    <!-- Toolbar Customization Demo -->
     <div class="demo-section">
-      <h2>Features</h2>
+      <h2>🎛️ Toolbar Customization Demo</h2>
+      <p>Explore different toolbar configurations and positions:</p>
+      
+      <div class="widget-container">
+        <div id="toolbar-demo"></div>
+      </div>
+      
+      <div class="controls">
+        <button onclick="setFloatingToolbar()">Floating Toolbar</button>
+        <button onclick="setVerticalToolbar()">Vertical Layout</button>
+        <button onclick="setMinimalToolbar()">Minimal Tools</button>
+        <button onclick="setFullToolbar()">All Tools</button>
+      </div>
+    </div>
+
+    <!-- Read-Only Display Demo -->
+    <div class="demo-section">
+      <h2>👁️ Read-Only Display Demo</h2>
+      <p>Perfect for displaying artwork without allowing modifications:</p>
+      
+      <div class="widget-container">
+        <div id="readonly-demo"></div>
+      </div>
+      
+      <div class="controls">
+        <button onclick="loadSampleDrawing()">Load Sample Art</button>
+        <button onclick="toggleReadOnlyMode()">Toggle Edit Mode</button>
+      </div>
+    </div>
+
+    <!-- Configuration Examples -->
+    <div class="demo-section">
+      <h2>⚙️ Configuration Examples</h2>
+      
+      <h3>Basic Setup</h3>
+      <div class="code-block">
+        <code>// Simple initialization
+const widget = new SketchWidget('#container', {
+  width: 800,
+  height: 600,
+  tools: ['pencil', 'pen', 'marker', 'eraser', 'lasso', 'ruler'],
+  exportFormat: 'svg'
+});</code>
+      </div>
+
+      <h3>Advanced Configuration</h3>
+      <div class="code-block">
+        <code>// Full feature configuration
+const advancedWidget = new SketchWidget('#container', {
+  width: 1000,
+  height: 700,
+  backgroundColor: '#fcfcfa',
+  tools: ['pencil', 'pen', 'marker', 'eraser', 'lasso', 'ruler'],
+  colors: ['#000000', '#FF3B30', '#FF9500', '#FFCC00', '#4CD964'],
+  exportFormat: 'both', // SVG + PNG
+  theme: 'light',
+  
+  // Toolbar configuration
+  showToolbar: true,
+  toolbarPosition: 'floating', // 'top', 'bottom', 'left', 'right', 'floating'
+  toolbarOrientation: 'horizontal', // 'horizontal', 'vertical'
+  toolbarDraggable: true,
+  toolbarCollapsible: true,
+  toolbarCollapsed: false,
+  
+  // Interaction modes
+  editable: true,
+  readOnly: false
+});</code>
+      </div>
+
+      <h3>API Methods</h3>
+      <div class="code-block">
+        <code>// Toolbar control
+widget.showToolbar();
+widget.hideToolbar();
+widget.toggleToolbar();
+widget.setToolbarPosition('floating', 100, 50);
+
+// Drawing control
+widget.setEditable(false); // Read-only mode
+widget.setReadOnly(true);  // Alternative syntax
+widget.clear();
+widget.undo();
+widget.redo();
+
+// Export options
+widget.exportSVG();
+widget.exportPNG();
+widget.exportJSON();
+
+// State management
+const state = widget.getState();
+widget.updateConfig({ toolbarPosition: 'top' });</code>
+      </div>
+    </div>
+
+    <!-- Feature Comparison -->
+    <div class="demo-section">
+      <h2>📊 Feature Comparison</h2>
       
       <div class="feature-grid">
         <div class="feature-card">
-          <h3>🎨 Vector Export</h3>
-          <p>Export your drawings as scalable SVG files that can be resized without quality loss.</p>
+          <h3>🎨 Drawing Tools</h3>
+          <p><strong>6 Professional Tools:</strong> Pencil, Pen, Marker, Eraser, Lasso Selection, Ruler/Measurement</p>
         </div>
         
         <div class="feature-card">
-          <h3>🖌️ Multiple Tools</h3>
-          <p>Pencil, pen, marker, eraser, lasso selection, and ruler tools for versatile drawing.</p>
+          <h3>🍎 Input Support</h3>
+          <p><strong>Multi-Input:</strong> Mouse, Touch, Apple Pencil with pressure sensitivity and palm rejection</p>
         </div>
         
         <div class="feature-card">
-          <h3>📱 Touch Support</h3>
-          <p>Works seamlessly on desktop, tablet, and mobile devices with pointer events.</p>
+          <h3>🎛️ Toolbar System</h3>
+          <p><strong>Flexible UI:</strong> 5 positions, draggable, collapsible, horizontal/vertical layouts</p>
         </div>
         
         <div class="feature-card">
-          <h3>⚡ Lightweight</h3>
-          <p>Only ~15KB minified with zero dependencies. Pure JavaScript implementation.</p>
+          <h3>⚡ Performance</h3>
+          <p><strong>Optimized:</strong> 120fps rendering, stroke caching, incremental drawing, memory efficient</p>
         </div>
         
         <div class="feature-card">
-          <h3>🎯 Easy Integration</h3>
-          <p>Simple CDN inclusion or npm install. Works with any framework or vanilla JS.</p>
+          <h3>📤 Export Options</h3>
+          <p><strong>Multiple Formats:</strong> SVG (vector), PNG (raster), JSON (data), or combined export</p>
         </div>
         
         <div class="feature-card">
-          <h3>🔧 Customizable</h3>
-          <p>Configure colors, tools, canvas size, and export formats to match your needs.</p>
+          <h3>🔧 Customization</h3>
+          <p><strong>Highly Configurable:</strong> Colors, tools, sizes, themes, behaviors, and API control</p>
         </div>
       </div>
     </div>
-    
+
+    <!-- Getting Started -->
     <div class="demo-section">
-      <h2>Getting Started</h2>
+      <h2>🚀 Quick Start Guide</h2>
       
-      <p>Add the widget to your website in 3 simple steps:</p>
-      
+      <h3>1. CDN Installation (Recommended)</h3>
       <div class="code-block">
-        <code>&lt;!-- 1. Include the script --&gt;
-&lt;script src="https://cdn.jsdelivr.net/gh/moohamedsalman93/sketch-widget/sketch-widget.min.js"&gt;&lt;/script&gt;
+        <code>&lt;!-- Include SketchWidget --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/moohamedsalman93/sketch-widget/dist/sketch-widget.min.js"&gt;&lt;/script&gt;
 
-&lt;!-- 2. Add a container --&gt;
-&lt;div data-sketch-widget data-width="800" data-height="600"&gt;&lt;/div&gt;
+&lt;!-- Auto-initialize with data attributes --&gt;
+&lt;div data-sketch-widget 
+     data-width="800" 
+     data-height="600"
+     data-toolbar-position="bottom"
+     data-export-format="svg"&gt;&lt;/div&gt;</code>
+      </div>
 
-&lt;!-- 3. That's it! The widget will auto-initialize --&gt;</code>
+      <h3>2. NPM Installation</h3>
+      <div class="code-block">
+        <code>npm install sketch-widget
+
+// ES6 Import
+import SketchWidget from 'sketch-widget';
+
+// CommonJS
+const SketchWidget = require('sketch-widget');</code>
+      </div>
+
+      <h3>3. Manual Initialization</h3>
+      <div class="code-block">
+        <code>&lt;div id="my-sketch"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  const widget = new SketchWidget('#my-sketch', {
+    width: 800,
+    height: 600,
+    toolbarPosition: 'floating',
+    toolbarDraggable: true,
+    tools: ['pencil', 'pen', 'marker', 'eraser', 'lasso', 'ruler']
+  });
+&lt;/script&gt;</code>
       </div>
       
-      <p>For more advanced usage, check out the <a href="https://github.com/moohamedsalman93/sketch-widget" target="_blank">GitHub repository</a> and documentation.</p>
+      <p>🔗 <strong>Resources:</strong> 
+        <a href="https://github.com/moohamedsalman93/sketch-widget" target="_blank">GitHub Repository</a> | 
+        <a href="https://www.npmjs.com/package/sketch-widget" target="_blank">NPM Package</a> | 
+        <a href="#" target="_blank">API Documentation</a>
+      </p>
     </div>
   </div>
   
   <!-- Include the SketchWidget -->
-  <!-- <script src="sketch-widget.js"></script> -->
-  <script src="https://cdn.jsdelivr.net/gh/moohamedsalman93/sketch-widget@latest/dist/sketch-widget.min.js"></script>
+  
   
   <script>
-    // Programmatic widget
-    let programmaticWidget;
+    // Demo widgets
+    let advancedWidget, pencilWidget, toolbarWidget, readonlyWidget;
     
     document.addEventListener('DOMContentLoaded', () => {
-      programmaticWidget = new SketchWidget('#programmatic-sketch', {
+      // Advanced demo with all features
+      advancedWidget = new SketchWidget('#advanced-demo', {
         width: '100%',
-        height: '100%',
-        exportFormat: 'json',
-        tools: ['pencil', 'pen', 'marker', 'eraser', 'lasso','ruler']
+        height: 500,
+        tools: ['pencil', 'pen', 'marker', 'eraser', 'lasso', 'ruler'],
+        colors: ['#000000', '#FF3B30', '#FF9500', '#FFCC00', '#4CD964', '#5AC8FA', '#0579FF', '#5856D6', '#FFFFFF'],
+        exportFormat: 'both',
+        toolbarPosition: 'bottom',
+        toolbarDraggable: true,
+        toolbarCollapsible: true,
+        editable: true
       });
+      
+      // Apple Pencil optimized demo
+      pencilWidget = new SketchWidget('#pencil-demo', {
+        width: '100%',
+        height: 400,
+        tools: ['pencil', 'pen', 'marker'],
+        toolbarPosition: 'top',
+        backgroundColor: '#fafafa'
+      });
+      
+      // Toolbar customization demo
+      toolbarWidget = new SketchWidget('#toolbar-demo', {
+        width: '100%',
+        height: 400,
+        toolbarPosition: 'floating',
+        toolbarDraggable: true,
+        toolbarOrientation: 'horizontal'
+      });
+      
+      // Read-only demo
+      readonlyWidget = new SketchWidget('#readonly-demo', {
+        width: '100%',
+        height: 350,
+        readOnly: true,
+        toolbarPosition: 'bottom',
+        backgroundColor: '#f8f9fa'
+      });
+      
+      // Setup event listeners for toolbar position changes
+      document.getElementById('toolbar-position').addEventListener('change', (e) => {
+        if (advancedWidget) {
+          advancedWidget.setToolbarPosition(e.target.value);
+        }
+      });
+      
+      document.getElementById('toolbar-orientation').addEventListener('change', (e) => {
+        if (advancedWidget) {
+          advancedWidget.updateConfig({ toolbarOrientation: e.target.value });
+        }
+      });
+      
+      // Setup pencil input tracking
+      setupPencilTracking();
     });
     
-    // Control functions
-    function clearCanvas() {
-      if (programmaticWidget) {
-        programmaticWidget.clear();
-      }
-    }
-    
-    function exportDrawing() {
-      if (programmaticWidget) {
-        programmaticWidget.exportDrawing();
-      }
-    }
-    
-    function saveDrawing() {
-      if (programmaticWidget) {
-        const data = programmaticWidget.getStrokes();
-        localStorage.setItem('sketch-demo-data', JSON.stringify(data));
-        alert('Drawing saved to local storage!');
-      }
-    }
-
-    
-    
-    function loadDrawing() {
-      if (programmaticWidget) {
-        const data = JSON.parse(localStorage.getItem('sketch-demo-data') || '[]');
-        // const data = {"version":"1.0","width":800,"height":500,"backgroundColor":"#fcfcfa","strokes":[{"tool":"pencil","color":"#000000","thickness":3,"points":[{"x":315.00006103515625,"y":171.70834350585938},{"x":306.3333435058594,"y":171.70834350585938},{"x":301.00006103515625,"y":174.375},{"x":296.3333435058594,"y":178.375},{"x":291.66668701171875,"y":183.0416717529297},{"x":281.66668701171875,"y":192.375},{"x":272.3333435058594,"y":202.375},{"x":268.3333435058594,"y":211.70834350585938},{"x":268.3333435058594,"y":217.0416717529297},{"x":273.66668701171875,"y":227.0416717529297},{"x":290.3333435058594,"y":238.375},{"x":318.3333435058594,"y":254.3750457763672},{"x":343.66668701171875,"y":273.04168701171875},{"x":354.3333435058594,"y":287.04168701171875},{"x":356.3333435058594,"y":297.7083435058594},{"x":351.66668701171875,"y":305.04168701171875},{"x":342.3333435058594,"y":311.04168701171875},{"x":322.3333435058594,"y":316.37506103515625},{"x":301.00006103515625,"y":316.37506103515625}]}]};
-        if (data.length > 0) {
-          programmaticWidget.loadStrokes(data);
-          alert('Drawing loaded from local storage!');
+    // Advanced demo controls
+    function toggleToolbar() {
+      if (advancedWidget) {
+        if (advancedWidget.isToolbarVisible()) {
+          advancedWidget.hideToolbar();
         } else {
-          alert('No saved drawing found!');
+          advancedWidget.showToolbar();
         }
+      }
+    }
+    
+    function toggleCollapse() {
+      if (advancedWidget) {
+        advancedWidget.toggleToolbar();
+      }
+    }
+    
+    function setReadOnly() {
+      if (advancedWidget) {
+        const isReadOnly = advancedWidget.isReadOnly();
+        advancedWidget.setReadOnly(!isReadOnly);
+      }
+    }
+    
+    function clearAdvanced() {
+      if (advancedWidget) {
+        advancedWidget.clear();
+      }
+    }
+    
+    function exportAdvanced() {
+      if (advancedWidget) {
+        advancedWidget.exportSVG();
+      }
+    }
+    
+    // Apple Pencil demo controls
+    function showPencilInfo() {
+      const infoDiv = document.getElementById('pencil-info');
+      infoDiv.style.display = infoDiv.style.display === 'none' ? 'block' : 'none';
+    }
+    
+    function clearPencil() {
+      if (pencilWidget) {
+        pencilWidget.clear();
+      }
+    }
+    
+    function setupPencilTracking() {
+      if (!pencilWidget) return;
+      
+      const canvas = pencilWidget.canvas;
+      if (!canvas) return;
+      
+      canvas.addEventListener('pointerdown', (e) => {
+        updateInputInfo(e);
+      });
+      
+      canvas.addEventListener('pointermove', (e) => {
+        updateInputInfo(e);
+      });
+    }
+    
+    function updateInputInfo(e) {
+      document.getElementById('input-type').textContent = e.pointerType || 'unknown';
+      document.getElementById('pointer-id').textContent = e.pointerId || 'unknown';
+      document.getElementById('pressure').textContent = e.pressure ? e.pressure.toFixed(3) : 'N/A';
+    }
+    
+    // Toolbar customization demo controls
+    function setFloatingToolbar() {
+      if (toolbarWidget) {
+        toolbarWidget.setToolbarPosition('floating', 50, 50);
+      }
+    }
+    
+    function setVerticalToolbar() {
+      if (toolbarWidget) {
+        toolbarWidget.updateConfig({ 
+          toolbarOrientation: 'vertical',
+          toolbarPosition: 'left'
+        });
+      }
+    }
+    
+    function setMinimalToolbar() {
+      if (toolbarWidget) {
+        toolbarWidget.updateConfig({ 
+          tools: ['pencil', 'eraser'],
+          toolbarPosition: 'top'
+        });
+      }
+    }
+    
+    function setFullToolbar() {
+      if (toolbarWidget) {
+        toolbarWidget.updateConfig({ 
+          tools: ['pencil', 'pen', 'marker', 'eraser', 'lasso', 'ruler'],
+          toolbarPosition: 'bottom'
+        });
+      }
+    }
+    
+    // Read-only demo controls
+    function loadSampleDrawing() {
+      if (readonlyWidget) {
+        // Create a sample drawing programmatically
+        const sampleData = {
+          strokes: [
+            {
+              tool: 'pen',
+              color: '#FF3B30',
+              thickness: 5,
+              alpha: 1,
+              points: [
+                {x: 100, y: 100}, {x: 200, y: 150}, {x: 300, y: 100}
+              ]
+            },
+            {
+              tool: 'marker',
+              color: '#4CD964',
+              thickness: 10,
+              alpha: 0.7,
+              points: [
+                {x: 150, y: 200}, {x: 250, y: 250}, {x: 350, y: 200}
+              ]
+            }
+          ]
+        };
+        
+        // Temporarily enable editing to load the drawing
+        readonlyWidget.setReadOnly(false);
+        readonlyWidget.importJSON(JSON.stringify(sampleData));
+        readonlyWidget.setReadOnly(true);
+      }
+    }
+    
+    function toggleReadOnlyMode() {
+      if (readonlyWidget) {
+        const isReadOnly = readonlyWidget.isReadOnly();
+        readonlyWidget.setReadOnly(!isReadOnly);
+        
+        // Update button text or provide feedback
+        const button = event.target;
+        button.textContent = isReadOnly ? 'Set Read-Only' : 'Enable Editing';
       }
     }
   </script>
